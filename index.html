@@ -1,300 +1,487 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Home | YT SHIDAN</title>
-  <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/111380045?v=4">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-  <script src="https://kit.fontawesome.com/884c84e0c3.js" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
-    integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-    crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="style.css" type="text/css">
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK" crossorigin="anonymous"></script> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shidan V | Quality Engineer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --pista: #BAE637;
+            --pure-red: #FF0000;
+            --bg-dark: #0a0a0b;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: white;
+            overflow-x: hidden;
+            margin: 0;
+        }
+        html { scroll-behavior: smooth; }
+
+        /* --- Addverb Style Reveal Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px) scale(0.98);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left { transform: translateX(-80px); }
+        .reveal-right { transform: translateX(80px); }
+        
+        .reveal.active {
+            opacity: 1 !important;
+            transform: translate(0, 0) scale(1) !important;
+        }
+
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active .stagger-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Dynamic Glow Background --- */
+        .glow {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(120px);
+            opacity: 0.15;
+            transition: transform 0.2s ease-out;
+        }
+
+        /* --- Glass Cards --- */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--pista);
+            transform: translateY(-10px);
+        }
+
+        /* --- Custom Progress Bars --- */
+        .progress-container {
+            height: 2px;
+            background: rgba(255, 255, 255, 0.05);
+            width: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--pista);
+            width: 0;
+            transition: width 2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    </style>
 </head>
+<body>
 
-<body style="background-color: rgb(0, 0, 0);">
-  <header class="col-12 fixed-top header-area">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-5 my-auto text-white"> <!-- brand name div -->
-          <h1 id="name">SHIDAN V</h1>
+    <!-- Dynamic Mouse-Follow Glows -->
+    <div id="glow-pista" class="glow w-[50vw] h-[50vw] bg-[#BAE637]" style="top: -10%; right: -10%;"></div>
+    <div id="glow-red" class="glow w-[40vw] h-[40vw] bg-[#FF0000]" style="bottom: -10%; left: -10%;"></div>
+    <div class="fixed inset-0 z-[-1] opacity-[0.03]" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 50px 50px;"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-[#0a0a0b]/80 backdrop-blur-xl border-b border-white/5 h-20 flex items-center">
+        <div class="max-w-7xl mx-auto px-6 w-full flex justify-between items-center text-white">
+            <a href="#" class="text-2xl font-black tracking-tighter uppercase">SHIDAN V</a>
+            <div class="hidden md:flex space-x-10">
+                <a href="#home" class="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-[#BAE637] transition-colors">Home</a>
+                <a href="#about" class="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-[#BAE637] transition-colors">About</a>
+                <a href="#skills" class="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-[#BAE637] transition-colors">Capabilities</a>
+                <a href="#experience" class="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-[#BAE637] transition-colors">Timeline</a>
+                <a href="#projects" class="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-[#BAE637] transition-colors">Portfolio</a>
+                <a href="#contact" class="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-[#BAE637] transition-colors">Contact</a>
+            </div>
         </div>
-        <div class="col-7 mt-auto text-white"> <!-- navbar div -->
-          <nav class="navbar navbar-expand-md">
-            <div class="container-fluid">
+    </nav>
 
-              <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-0 mb-lg-0"> <!--mb-2 mb-lg-0-->
-                  <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="#home">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="#experiences">Experience</a>
-                  </li>
-                  <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                      Projects
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Advanced Home Automation</a></li>
-                      <li><a class="dropdown-item" href="#">Borewell Automation</a></li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+    <!-- Hero -->
+    <section id="home" class="min-h-screen flex items-center pt-20 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center w-full">
+            <div class="reveal reveal-left">
+                <span class="inline-block text-[#FF0000] text-[11px] font-black tracking-[0.5em] uppercase mb-6 font-black">Discovery</span>
+                <h1 class="text-7xl md:text-9xl font-black leading-[0.85] mb-8 tracking-tighter text-white">SHIDAN <br> <span class="text-[#BAE637]">V.</span></h1>
+                <h2 class="text-3xl font-bold text-white opacity-90 mb-8 flex items-center">
+                    <span class="text-[#FF0000]">Quality Engineer</span>
+                    <span class="mx-4 h-[1px] w-12 bg-white/20"></span>
+                    <span class="text-gray-400 text-2xl uppercase tracking-widest">Automation</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-xl mb-12 italic border-l-2 border-[#BAE637] pl-6 leading-relaxed">
+                    "Every person has a unique role, just like each key has its own function."
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <a href="#projects" class="px-10 py-5 bg-[#BAE637] text-black rounded-full font-black text-xs tracking-widest uppercase hover:scale-105 transition-all shadow-lg shadow-[#BAE637]/20">Explore Work</a>
+                    <a href="#contact" class="px-10 py-5 bg-white/5 border border-white/10 text-white rounded-full font-black text-xs tracking-widest uppercase hover:border-[#FF0000] transition-all">Get in Touch</a>
+                </div>
+            </div>
+            <div class="reveal reveal-right flex justify-center">
+                <div class="w-80 h-80 md:w-[500px] md:h-[500px] bg-gradient-to-br from-white/5 to-transparent rounded-[40px] border border-white/5 flex items-center justify-center relative">
+                    <i data-lucide="user" class="w-48 h-48 text-gray-800 opacity-20" stroke-width="1"></i>
+                    <div class="absolute bottom-12 left-12 p-6 glass-card rounded-2xl">
+                        <p class="text-[10px] font-black text-[#BAE637] uppercase tracking-[0.3em] mb-1">Focus</p>
+                        <p class="text-lg font-bold">Industrial Innovation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-40 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-20 items-start">
+                <div class="reveal reveal-left">
+                    <span class="text-[#FF0000] text-[11px] font-black tracking-[0.5em] uppercase mb-6 block font-black">Introduction</span>
+                    <h3 class="text-5xl md:text-7xl font-black leading-tight mb-10 text-white">Technical <br> Backbone.</h3>
+                    <div class="w-24 h-2 bg-[#BAE637] rounded-full"></div>
+                </div>
+                <div class="reveal reveal-right space-y-8 text-lg text-gray-400 leading-relaxed">
+                    <p>I am a dedicated professional with a strong foundation in <span class="text-white font-bold">Electronics and Communication Engineering</span>. I possess valuable experience in supervision and machine operation, along with a proven ability to manage projects in home automation and water management systems.</p>
+                    <p>Currently leveraging these skills as a <span class="text-[#BAE637] font-bold">Quality Engineer</span>, I focus on ensuring that every industrial output meets the most rigorous standards of excellence and safety.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="py-40 px-6 bg-white/[0.01]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-24 reveal">
+                <span class="text-[#FF0000] text-[11px] font-black tracking-[0.5em] uppercase mb-6 block font-black">Capabilities</span>
+                <h3 class="text-5xl md:text-7xl font-black text-white">Expertise</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Technical -->
+                <div class="reveal p-10 glass-card">
+                    <h4 class="text-2xl font-black mb-10 text-white uppercase tracking-tighter">Technical</h4>
+                    <div class="space-y-8 text-white">
+                        <div>
+                            <div class="flex justify-between mb-2 text-[10px] font-black uppercase tracking-widest text-gray-500"><span>Electronics Projects</span><span class="text-[#BAE637]">90%</span></div>
+                            <div class="progress-container"><div class="progress-fill" data-width="90%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2 text-[10px] font-black uppercase tracking-widest text-gray-500"><span>Team Leadership</span><span class="text-[#BAE637]">95%</span></div>
+                            <div class="progress-container"><div class="progress-fill" data-width="95%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2 text-[10px] font-black uppercase tracking-widest text-gray-500"><span>Coding & Web</span><span class="text-[#BAE637]">70%</span></div>
+                            <div class="progress-container"><div class="progress-fill" data-width="70%"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tools -->
+                <div class="reveal p-10 glass-card">
+                    <h4 class="text-2xl font-black mb-10 text-white uppercase tracking-tighter">Stack</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-5 py-3 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-[#BAE637] hover:border-[#BAE637]/50 transition-all">API</span>
+                        <span class="px-5 py-3 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-[#BAE637] hover:border-[#BAE637]/50 transition-all">Github</span>
+                        <span class="px-5 py-3 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-[#BAE637] hover:border-[#BAE637]/50 transition-all">Inventor</span>
+                        <span class="px-5 py-3 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-[#BAE637] hover:border-[#BAE637]/50 transition-all">Latex</span>
+                        <span class="px-5 py-3 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-[#BAE637] hover:border-[#BAE637]/50 transition-all">Matlab</span>
+                        <span class="px-5 py-3 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-[#BAE637] hover:border-[#BAE637]/50 transition-all">Robotics</span>
+                        <span class="px-5 py-3 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-[#BAE637] hover:border-[#BAE637]/50 transition-all">Ultrasonic</span>
+                        <span class="px-5 py-3 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-[#BAE637] hover:border-[#BAE637]/50 transition-all">Wordpress</span>
+                    </div>
+                </div>
+                <!-- Languages -->
+                <div class="reveal p-10 glass-card">
+                    <h4 class="text-2xl font-black mb-10 text-white uppercase tracking-tighter">Languages</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 gap-6">
+                            <span class="font-bold text-sm text-white">English</span>
+                            <span class="text-[#BAE637] text-[9px] font-black uppercase tracking-widest text-right opacity-80">Proficient</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 gap-6">
+                            <span class="font-bold text-sm text-white">Hindi</span>
+                            <span class="text-[#BAE637] text-[9px] font-black uppercase tracking-widest text-right opacity-80">Proficient</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 gap-6">
+                            <span class="font-bold text-sm text-white">Malayalam</span>
+                            <span class="text-[#BAE637] text-[9px] font-black uppercase tracking-widest text-right opacity-80">Native</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 gap-6">
+                            <span class="font-bold text-sm text-white">Tamil</span>
+                            <span class="text-[#BAE637] text-[9px] font-black uppercase tracking-widest text-right opacity-80">Intermediate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section id="experience" class="py-40 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-24 reveal">
+                <span class="text-[#FF0000] text-[11px] font-black tracking-[0.5em] uppercase mb-6 block font-black">Timeline</span>
+                <h3 class="text-5xl md:text-7xl font-black text-white">Work Experience</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Smart Enterprises -->
+                <div class="reveal reveal-up group">
+                    <div class="glass-card p-12 h-full flex flex-col">
+                        <div class="flex justify-between items-start mb-10">
+                            <span class="text-[10px] font-black tracking-widest text-gray-500 uppercase">February 2025 - Present</span>
+                            <i data-lucide="briefcase" class="text-[#FF0000]"></i>
+                        </div>
+                        <h4 class="text-4xl font-black text-white group-hover:text-[#BAE637] transition-colors uppercase tracking-tighter">Quality Engineer</h4>
+                        <p class="text-[#FF0000] font-black text-lg uppercase tracking-widest mt-1 mb-6">Smart Enterprises Pvt. Ltd.</p>
+                        
+                        <ul class="space-y-4 text-gray-400 font-bold text-sm mt-auto">
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-[#BAE637] w-4 h-4 mr-4 mt-0.5"></i> <span>Working as a Quality Engineer</span></li>
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-[#BAE637] w-4 h-4 mr-4 mt-0.5"></i> <span>Ensuring product quality</span></li>
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-[#BAE637] w-4 h-4 mr-4 mt-0.5"></i> <span>Compliance with quality standards</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Walkaroo -->
+                <div class="reveal reveal-up group">
+                    <div class="glass-card p-12 h-full flex flex-col">
+                        <div class="flex justify-between items-start mb-10">
+                            <span class="text-[10px] font-black tracking-widest text-gray-500 uppercase">June 2024 - January 2025</span>
+                            <i data-lucide="briefcase" class="text-[#FF0000]"></i>
+                        </div>
+                        <h4 class="text-4xl font-black text-white group-hover:text-[#BAE637] transition-colors uppercase tracking-tighter">Machine Operator</h4>
+                        <p class="text-[#FF0000] font-black text-lg uppercase tracking-widest mt-1 mb-6">Walkaroo International Pvt. Ltd.</p>
+                        
+                        <ul class="space-y-4 text-gray-400 font-bold text-sm mt-auto">
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-[#BAE637] w-4 h-4 mr-4 mt-0.5"></i> <span>Worked as a Machine Operator</span></li>
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-[#BAE637] w-4 h-4 mr-4 mt-0.5"></i> <span>Production controlling</span></li>
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-[#BAE637] w-4 h-4 mr-4 mt-0.5"></i> <span>Product quality assurance</span></li>
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-[#BAE637] w-4 h-4 mr-4 mt-0.5"></i> <span>Machine management and controlling</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Embronics -->
+                <div class="reveal reveal-up group">
+                    <div class="glass-card p-12 h-full flex flex-col">
+                        <div class="flex justify-between items-start mb-10">
+                            <span class="text-[10px] font-black tracking-widest text-gray-500 uppercase">June 2021 - July 2024</span>
+                            <i data-lucide="briefcase" class="text-[#FF0000]"></i>
+                        </div>
+                        <h4 class="text-4xl font-black text-white group-hover:text-[#BAE637] transition-colors uppercase tracking-tighter">Supervisor</h4>
+                        <p class="text-[#FF0000] font-black text-lg uppercase tracking-widest mt-1 mb-6">Embronics</p>
+                        
+                        <p class="text-gray-400 font-bold leading-relaxed mb-6 mt-auto">
+                            Company involved in electronics manufacturing and solutions. Responsible for team technical oversight and industrial compliance.
+                        </p>
+                        <ul class="space-y-4 text-gray-400 font-bold text-sm">
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-[#BAE637] w-4 h-4 mr-4 mt-0.5"></i> <span>Technical oversight</span></li>
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-[#BAE637] w-4 h-4 mr-4 mt-0.5"></i> <span>Team supervision</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-40 px-6 bg-white/[0.01]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-24 reveal">
+                <span class="text-[#FF0000] text-[11px] font-black tracking-[0.5em] uppercase mb-6 block font-black">Portfolio</span>
+                <h3 class="text-5xl md:text-7xl font-black text-white">Featured Work</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Borewell -->
+                <div class="reveal p-12 glass-card group">
+                    <div class="flex justify-between items-start mb-10">
+                        <span class="text-[10px] font-black tracking-widest text-gray-500 uppercase">June 2023 - April 2024</span>
+                        <i data-lucide="zap" class="text-[#FF0000]"></i>
+                    </div>
+                    <h4 class="text-4xl font-black text-white group-hover:text-[#BAE637] transition-colors uppercase tracking-tighter">Borewell Automation</h4>
+                    <p class="text-gray-400 mb-10 font-bold">Efficient water level monitoring and automated monitoring system utilizing ultrasonic technology.</p>
+                    <ul class="space-y-4 mb-12">
+                        <li class="flex items-center text-sm font-bold"><i data-lucide="plus" class="text-[#BAE637] w-4 h-4 mr-4"></i> Water level monitoring</li>
+                        <li class="flex items-center text-sm font-bold"><i data-lucide="plus" class="text-[#BAE637] w-4 h-4 mr-4"></i> Auto Pumping system</li>
+                        <li class="flex items-center text-sm font-bold"><i data-lucide="plus" class="text-[#BAE637] w-4 h-4 mr-4"></i> Failsafe cut-off controls</li>
                     </ul>
-                  </li> -->
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="#projects">Projects</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="#contact">Contact</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="about.html">About</a>
-                  </li>
-                </ul>
-
-              </div>
+                </div>
+                <!-- Home Automation -->
+                <div class="reveal p-12 glass-card group">
+                    <div class="flex justify-between items-start mb-10">
+                        <span class="text-[10px] font-black tracking-widest text-gray-500 uppercase">October 2023 - January 2024</span>
+                        <i data-lucide="layers" class="text-[#FF0000]"></i>
+                    </div>
+                    <h4 class="text-4xl font-black text-white group-hover:text-[#BAE637] transition-colors uppercase tracking-tighter">Home Automation</h4>
+                    <p class="text-gray-400 mb-10 font-bold">Advanced IoT ecosystem with personalized user interfaces and high-security dedicated servers.</p>
+                    <ul class="space-y-4 mb-12">
+                        <li class="flex items-center text-sm font-bold"><i data-lucide="plus" class="text-[#BAE637] w-4 h-4 mr-4"></i> Custom sub-user permission menu</li>
+                        <li class="flex items-center text-sm font-bold"><i data-lucide="plus" class="text-[#BAE637] w-4 h-4 mr-4"></i> Usage statistics tracking</li>
+                        <li class="flex items-center text-sm font-bold"><i data-lucide="plus" class="text-[#BAE637] w-4 h-4 mr-4"></i> Gadgets self control interface</li>
+                    </ul>
+                </div>
             </div>
-          </nav>
-        </div> <!-- navbar div-->
-      </div>
-    </div>
-  </header>
-
-  <section class="" style="padding-top: 5em; scroll-margin-top: 6em;" id="home"> <!--Home-->
-    <div class="container-fluid text-center">
-      <div class="row align-items-center">
-        <div class="p-4 col-12 col-md-6">
-          <img src="Images/Photos/Photo1-SHIDAN_V-sq.png" alt="Shidan's Photo"
-            class="img-fluid rounded-circle profile-photo w-50">
         </div>
-        <div class="ps-3 p-4 ms-3 ms-md-0 mt-3 mt-md-0 col-12 col-md-6 rounded-start-5 bg-dark text-white">
-          <div class="row">
-            <h2 class="text-white">Quality Engineer</h2>
-            <h4 class="text-white">Smart Enterprises Pvt. Ltd.</h4><br><br>
-            <p class="profile-quote" id="">"Every person has a unique role, just like each key has its own
-              function."
-              <br>- Shidan</p>
-            <div class="d-flex gap-3 justify-content-center">
-              <a class="fa-brands fa-linkedin profile-links p-1 rounded-2" href="https://linkedin.com/in/shidan-v/"
-                target="_blank"></a>
-              <a class="fa-brands fa-instagram profile-links p-1 rounded-2" href="https://instagram.com/ytshidan50/"
-                target="_blank"></a>
-              <a class="fa-solid fa-folder-open profile-links p-1 rounded-2" style="font-size: 1em;" href="https://drive.google.com/file/d/1IOJ9f2uXFwvMy868OSnvs9v9pF-Uvzor/view" target="_blank"> CV</a>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-40 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-24">
+                <div class="reveal reveal-left">
+                    <span class="text-[#FF0000] text-[11px] font-black tracking-[0.5em] uppercase mb-10 block font-black text-red">Connection</span>
+                    <h3 class="text-6xl md:text-8xl font-black mb-12 leading-none text-white">Let's <br> Build.</h3>
+                    <div class="p-10 glass-card relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-[#BAE637]"></div>
+                        <h4 class="text-lg font-black uppercase tracking-widest mb-10 text-white">Get In Touch</h4>
+                        <div class="flex items-center space-x-6 mb-12">
+                            <div class="w-16 h-16 bg-[#BAE637] rounded-2xl flex items-center justify-center">
+                                <i data-lucide="mail" class="text-black"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1">Email ID</p>
+                                <p class="text-xl font-bold text-white">ytshidan50@gmail.com</p>
+                            </div>
+                        </div>
+                        <a href="mailto:ytshidan50@gmail.com" class="w-full py-6 bg-white text-black rounded-full font-black text-center block uppercase tracking-widest hover:bg-[#BAE637] transition-all">Send Message</a>
+                    </div>
+                </div>
+                <div class="reveal reveal-right">
+                    <h4 class="text-xl font-black mb-12 uppercase tracking-widest flex items-center text-white">Social Network <span class="ml-6 h-[1px] flex-1 bg-white/10"></span></h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <a href="https://linkedin.com/in/ytshidan50" target="_blank" class="p-6 glass-card group flex justify-between items-center transition-all hover:bg-[#0077b5]/10">
+                            <div class="flex items-center space-x-4">
+                                <i data-lucide="linkedin" class="text-gray-500 group-hover:text-[#BAE637] transition-colors"></i>
+                                <div>
+                                    <p class="font-black text-xs uppercase tracking-widest mb-0.5 text-white">LinkedIn</p>
+                                    <p class="text-[10px] font-bold text-gray-400 group-hover:text-[#BAE637] transition-colors">Shidan V</p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 text-gray-700"></i>
+                        </a>
+                        <a href="https://github.com/ytshidan50" target="_blank" class="p-6 glass-card group flex justify-between items-center transition-all hover:bg-white/10">
+                            <div class="flex items-center space-x-4">
+                                <i data-lucide="github" class="text-gray-500 group-hover:text-[#BAE637] transition-colors"></i>
+                                <div>
+                                    <p class="font-black text-xs uppercase tracking-widest mb-0.5 text-white">GitHub</p>
+                                    <p class="text-[10px] font-bold text-gray-400 transition-colors text-white">@<span class="group-hover:text-[#FF0000] transition-colors">ytshidan50</span></p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 text-gray-700"></i>
+                        </a>
+                        <a href="https://youtube.com/@ytshidan50" target="_blank" class="p-6 glass-card group flex justify-between items-center transition-all hover:bg-[#ff0000]/10">
+                            <div class="flex items-center space-x-4">
+                                <i data-lucide="youtube" class="text-gray-500 group-hover:text-[#BAE637] transition-colors"></i>
+                                <div>
+                                    <p class="font-black text-xs uppercase tracking-widest mb-0.5 text-white">YouTube</p>
+                                    <p class="text-[10px] font-bold text-gray-400 transition-colors text-white">@<span class="group-hover:text-[#FF0000] transition-colors">ytshidan50</span></p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 text-gray-700"></i>
+                        </a>
+                        <a href="https://instagram.com/ytshidan50" target="_blank" class="p-6 glass-card group flex justify-between items-center transition-all hover:bg-[#c32aa3]/10">
+                            <div class="flex items-center space-x-4">
+                                <i data-lucide="instagram" class="text-gray-500 group-hover:text-[#BAE637] transition-colors"></i>
+                                <div>
+                                    <p class="font-black text-xs uppercase tracking-widest mb-0.5 text-white">Instagram</p>
+                                    <p class="text-[10px] font-bold text-gray-400 transition-colors text-white">@<span class="group-hover:text-[#FF0000] transition-colors">ytshidan50</span></p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 text-gray-700"></i>
+                        </a>
+                        <a href="https://facebook.com/ytshidan50" target="_blank" class="p-6 glass-card group flex justify-between items-center transition-all hover:bg-[#1877f2]/10">
+                            <div class="flex items-center space-x-4">
+                                <i data-lucide="facebook" class="text-gray-500 group-hover:text-[#BAE637] transition-colors"></i>
+                                <div>
+                                    <p class="font-black text-xs uppercase tracking-widest mb-0.5 text-white">Facebook</p>
+                                    <p class="text-[10px] font-bold text-gray-400 transition-colors text-white">@<span class="group-hover:text-[#FF0000] transition-colors">ytshidan50</span></p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 text-gray-700"></i>
+                        </a>
+                        <a href="https://twitter.com/ytshidan50" target="_blank" class="p-6 glass-card group flex justify-between items-center transition-all hover:bg-[#1da1f2]/10">
+                            <div class="flex items-center space-x-4">
+                                <i data-lucide="twitter" class="text-gray-500 group-hover:text-[#BAE637] transition-colors"></i>
+                                <div>
+                                    <p class="font-black text-xs uppercase tracking-widest mb-0.5 text-white">Twitter</p>
+                                    <p class="text-[10px] font-bold text-gray-400 transition-colors text-white">@<span class="group-hover:text-[#FF0000] transition-colors">ytshidan50</span></p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 text-gray-700"></i>
+                        </a>
+                        <a href="https://stackoverflow.com/users/30901957/ytshidan50" target="_blank" class="p-6 glass-card group flex justify-between items-center transition-all hover:bg-[#f48024]/10">
+                            <div class="flex items-center space-x-4">
+                                <i data-lucide="globe" class="text-gray-500 group-hover:text-[#BAE637] transition-colors"></i>
+                                <div>
+                                    <p class="font-black text-xs uppercase tracking-widest mb-0.5 text-white">Stack Overflow</p>
+                                    <p class="text-[10px] font-bold text-gray-400 group-hover:text-[#BAE637] transition-colors">YT SHIDAN</p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 text-gray-700"></i>
+                        </a>
+                        <a href="https://reddit.com/user/ytshidan50" target="_blank" class="p-6 glass-card group flex justify-between items-center transition-all hover:bg-[#ff4500]/10">
+                            <div class="flex items-center space-x-4">
+                                <i data-lucide="message-square" class="text-gray-500 group-hover:text-[#BAE637] transition-colors"></i>
+                                <div>
+                                    <p class="font-black text-xs uppercase tracking-widest mb-0.5 text-white">Reddit</p>
+                                    <p class="text-[10px] font-bold text-gray-400 transition-colors text-white">@<span class="group-hover:text-[#FF0000] transition-colors">ytshidan50</span></p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 text-gray-700"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section> <!--Home-->
+    </section>
 
-  <section class="me-1 me-md-1 m-3 mt-5 col-12 align-items-center" id="experiences" style="scroll-margin-top: 5em;"> <!--Experience-->
-    <div class="container-fluid pt-1 rounded-4 bg-dark">
-      <h2 class="text-center text-white mt-3">Work Experience</h2>
-      <div class="row text-white d-flex justify-content-center align-items-center p-2 ps-3 pe-3">
+    <!-- Footer -->
+    <footer class="container-fluid px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 py-10">
+            <span class="text-xl font-black tracking-tighter uppercase text-white">SHIDAN V</span>
+            <span class="text-[10px] text-gray-600 font-black uppercase tracking-[0.4em]">© 2025 All Rights Reserved</span>
+            <div class="flex items-center text-[10px] font-black uppercase tracking-widest text-gray-500">
+                Electronics <span class="text-[#FF0000] mx-2">&</span> Communication
+                <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="ml-10 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                    <i data-lucide="arrow-up" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
 
-        <div class="custom-card col-12 col-md-6 col-lg-4 m-3 rounded-4"> <!--Card-->
-          <div class="row">
-            <div class="d-flex">
-              <div class="bg-dark rounded-3 p-3 m-3 ms-2" style="width: 3.5em;"> <!--Icon-->
-                <i class="fa-solid fa-building fa-2xl text-white"></i>
-              </div> <!--Icon-->
-              <div class="d-flex flex-column p-2">
-                <h3 class="">Smart Enterprises</h3>
-                <p class="fst-italic mb-0">Feb 2025 - Present</p>
-              </div>
-            </div>
-          </div>
-          <div class="row ps-3">
-            <ul>
-              <li>Working as a Quality Engineer</li>
-              <li>Ensuring product quality</li>
-              <li>Complience with quality standards</li>
-            </ul>
-          </div>
-        </div> <!--Card-->
+    <script>
+        lucide.createIcons();
 
-        <div class=" col-12 col-md-6 col-lg-4 m-3 rounded-4  custom-card"> <!--Card-->
-          <div class="row">
-            <div class="d-flex">
-              <div class="bg-dark rounded-3 p-3 ps-2 m-3 ms-2" style="width: 3.5em;"> <!--Icon-->
-                <img style="width: 2em;" class="ms-1" src="Images/Icons/walkarooIcon.png" alt="">
-              </div> <!--Icon-->
-              <div class="d-flex flex-column p-2">
-                <h3 class="">Walkaroo International</h3>
-                <p class="fst-italic mb-0">Jun 2024 - Jan 2025</p>
-              </div>
-            </div>
-          </div>
-          <div class="row ps-3">
-            <ul>
-              <li>Worked as a Machine Operator</li>
-              <li>Production controlling</li>
-              <li>Product quality assurance</li>
-              <li>Machine management and controlling</li>
-            </ul>
-          </div>
-        </div> <!--Card-->
+        // --- High-End Scroll Reveal ---
+        const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Fill progress bars
+                    entry.target.querySelectorAll('.progress-fill').forEach(fill => {
+                        fill.style.width = fill.getAttribute('data-width');
+                    });
+                }
+            });
+        }, observerOptions);
 
-      </div>
-    </div>
-  </section> <!--Experience-->
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  <section class="pe-1 p-2 me-3  mt-5 rounded-end-5 bg-dark text-black" id="projects" style="scroll-margin-top: 6em;"> <!--Projects-->
-    <div class="container-fluid pt-1 rounded-4 bg-dark">
-      <h2 class="text-center text-white mt-3">Projects</h2>
-      <div class="row text-white d-flex justify-content-center align-items-center p-2 ps-3 pe-3">
-
-        <div class="custom-card col-12 col-md-6 col-lg-4 m-3 rounded-4"> <!--Card-->
-          <div class="row">
-            <div class="d-flex">
-              <div class="bg-dark rounded-3 p-3 m-3 ms-2" style="width: 3.5em;"> <!--Icon-->
-                <i class="fa-solid fa-comment-nodes fa-xl"></i>
-              </div> <!--Icon-->
-              <div class="d-flex flex-column p-2">
-                <h3 class="">Borewell Automation</h3>
-                <p class="fst-italic mb-0"></p>
-              </div>
-            </div>
-          </div>
-          <div class="row ps-3">
-            <ul>
-              <li>Water level monitoring</li>
-              <li>Auto Pumping</li>
-            </ul>
-          </div>
-        </div> <!--Card-->
-
-        <div class="custom-card col-12 col-md-6 col-lg-4 m-3 rounded-4"> <!--Card-->
-          <div class="row">
-            <div class="d-flex">
-              <div class="bg-dark rounded-3 p-3 m-3 ms-2"> <!--Icon-->
-                <i class="fa-solid fa-lightbulb fa-2xl"></i>
-              </div> <!--Icon-->
-              <div class="d-flex flex-column p-2">
-                <h3 class="">Advanced Home Automation</h3>
-                <p class="fst-italic mb-0"></p>
-              </div>
-            </div>
-          </div>
-          <div class="row ps-3">
-            <ul>
-              <li>Custom sub-user permission menu</li>
-              <li>Usage statistics</li>
-              <li>Gadgets self control</li>
-            </ul>
-          </div>
-        </div> <!--Card-->
-
-      </div>
-    </div>
-  </section> <!--Projects-->
-
-  <section class="ps-1 p-2 ms-3 mt-5 pb-4 col-12 rounded-start-5 bg-dark text-black mb-5" id="contact" style="scroll-margin-top: 6em;"> <!--Contact-->
-    <div class="container-fluid pt-1 rounded-4 bg-dark">
-      <h2 class="text-center text-white mt-3">Connect Me</h2>
-      <div class="row text-white d-flex justify-content-center p-2 pe-3 ps-3 mt-3 gap-4 align-items-center">
-
-        <div class="custom-card col-12 col-md-4 rounded-4 p-1" style="height: fit-content;"> <!--Social-->
-
-          <a class="social-links" href="https://linkedin.com/in/shidan-v/" target="_blank">
-            <div class="p-1 m-2 gap-1 d-flex social-cards">
-              <i class="fa-brands fa-linkedin p-1"></i>
-              SHIDAN V
-            </div>
-          </a>
-          <a class="social-links" href="https://github.com/ytshidan50/" target="_blank">
-            <div class="p-1 m-2 gap-1 d-flex social-cards">
-              <i class="fa-brands fa-github p-1"></i>
-              ytshidan50
-            </div>
-          </a>
-          <a class="social-links" href="https://instagram.com/ytshidan50/" target="_blank">
-            <div class="p-1 m-2 gap-1 d-flex social-cards">
-              <i class="fa-brands fa-instagram p-1"></i>
-              ytshidan50
-            </div>
-          </a>
-          <a class="social-links" href="https://facebook.com/ytshidan50/" target="_blank">
-            <div class="p-1 m-2 gap-1 d-flex social-cards">
-              <i class="fa-brands fa-square-facebook p-1"></i>
-              ytshidan50
-            </div>
-          </a>
-          <a class="social-links" href="https://x.com/ytshidan50/" target="_blank">
-            <div class="p-1 m-2 gap-1 d-flex social-cards">
-              <i class="fa-brands fa-twitter p-1"></i>
-              ytshidan50
-            </div>
-          </a>
-          <a class="social-links" href="https://steamcommunity.com/id/ytshidan50/" target="_blank">
-            <div class="p-1 m-2 gap-1 d-flex social-cards">
-              <i class="fa-brands fa-square-steam p-1"></i>
-              ytshidan50
-            </div>
-          </a>
-
-        </div> <!--Social-->
-
-        <div class="custom-card col-12 col-md-6 rounded-4 p-3"> <!--Message-->
-          <form class="row g-3 needs-validation" novalidate action="/request" method="post">
-            <div class="col-md-6">
-              <label for="fullName" class="form-label">Full Name</label>
-              <input name="fullName" type="text" placeholder="First-Name Second-Name" class="form-control" id="fullName" required>
-            </div>
-            <div class="col-md-6">
-              <label for="emailId" class="form-label">Email ID</label>
-              <div class="input-group has-validation">
-                <span class="input-group-text" id="inputGroupPrepend">✉</span>
-                <input name="emailId" type="email" placeholder="name@example.domain" class="form-control" id="emailId"
-                  aria-describedby="inputGroupPrepend" required>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <label for="subject" class="form-label">Subject</label>
-              <input name="subject" type="text" placeholder="Topic" class="form-control" id="subject" required>
-            </div>
-            <div class="col-md-12">
-              <label for="content" class="form-label">Content</label>
-              <textarea name="content" type="text" placeholder="Explanation" class="form-control" id="content" rows="3" required></textarea>
-            </div>
-            <div class="col-12 text-center">
-              <button class="btn btn-dark" type="submit">Send Request</button>
-            </div>
-          </form>
-        </div> <!--Message-->
-
-      </div>
-    </div>
-  </section> <!--Contact-->
-
-  <footer class="copyrights-area fixed-bottom"> <!--Copyright-->
-    <div class="container-fluid align-items-center text-center">
-      <div class="row">
-        <t class="text-white">© Copyrights - 2025</t>
-      </div>
-    </div>
-  </footer> <!--Copyright-->
-  <script>
-  </script>
-  <script src="form-validation.js"></script>
+        // --- Mouse Parallax for Background Glows ---
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX / window.innerWidth - 0.5) * 50;
+            const moveY = (e.clientY / window.innerHeight - 0.5) * 50;
+            document.getElementById('glow-pista').style.transform = `translate(${moveX}px, ${moveY}px)`;
+            document.getElementById('glow-red').style.transform = `translate(${-moveX}px, ${-moveY}px)`;
+        });
+    </script>
 </body>
-
 </html>
